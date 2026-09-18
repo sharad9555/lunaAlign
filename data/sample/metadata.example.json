@@ -1,0 +1,11 @@
+{
+  "solar_azimuth": 135.0,
+  "solar_elevation": 42.0,
+  "phase_angle": 38.0,
+  "incidence_angle": 44.0,
+  "emission_angle": 6.0,
+  "pixel_resolution": 0.25,
+  "acquisition_time": "2026-01-01T00:00:00Z",
+  "viewing_geometry": "NADIR",
+  "orientation": "NORTH_UP"
+}

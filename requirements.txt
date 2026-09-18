@@ -1,0 +1,12 @@
+fastapi>=0.115,<1
+uvicorn[standard]>=0.30,<1
+python-multipart>=0.0.9
+pydantic>=2.7,<3
+numpy>=1.26,<3
+# OpenCV 4 or newer; OpenCV 5 is supported when supplied by the local environment.
+opencv-python>=4.9
+scikit-image>=0.22,<1
+# Optional: GeoTIFF metadata support
+# rasterio>=1.3
+# Optional: confidence calibration training only
+# scikit-learn>=1.4

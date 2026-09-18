@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>LunaAlign AI</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:1000px;margin:0 auto;padding:32px;background:#f6f7f9;color:#18202a}h1{margin-bottom:4px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:#fff;border:1px solid #ddd;border-radius:12px;padding:20px;margin:18px 0}.upload{border:2px dashed #bbb;padding:22px;border-radius:10px}.actions{margin-top:18px}.btn{padding:12px 20px;border:0;border-radius:8px;cursor:pointer}.btn:disabled{opacity:.45;cursor:not-allowed}.status{margin-top:14px;font-weight:600}.success{color:#16743a}.failure{color:#a22}.hidden{display:none}pre{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>LUNALIGN AI</h1><p>Cross-sensor lunar registration workbench</p>
+<div class="card">
+<form id="runForm" novalidate>
+<div class="grid">
+<label class="upload">Source image<br><input id="source" type="file" accept="image/*,.tif,.tiff"></label>
+<label class="upload">Reference image<br><input id="target" type="file" accept="image/*,.tif,.tiff"></label>
+</div>
+<div class="actions"><button id="runBtn" class="btn" type="submit" disabled>RUN LUNALIGN</button></div>
+<div id="status" class="status">Upload both source and reference images to begin.</div>
+</form>
+</div>
+<div id="results" class="card hidden" aria-live="polite"><h2 id="resultStatus"></h2><pre id="metrics"></pre></div>
+<script>
+(function(){
+'use strict';
+const source=document.getElementById('source'), target=document.getElementById('target'), runBtn=document.getElementById('runBtn'), form=document.getElementById('runForm'), status=document.getElementById('status'), results=document.getElementById('results'), resultStatus=document.getElementById('resultStatus'), metrics=document.getElementById('metrics');
+function filesReady(){return source.files.length===1 && target.files.length===1 && source.files[0] instanceof File && target.files[0] instanceof File;}
+function resetResults(){results.classList.add('hidden');resultStatus.textContent='';metrics.textContent='';}
+function sync(){const ready=filesReady();runBtn.disabled=!ready;if(!ready){resetResults();status.textContent='Upload both source and reference images to begin.';}else{status.textContent='Both images selected. Ready to run.';}}
+source.addEventListener('change',sync); target.addEventListener('change',sync); sync();
+form.addEventListener('submit',async function(e){
+ e.preventDefault(); e.stopPropagation();
+ // Absolute client-side gate: without two newly selected files, no request and no processing.
+ if(!filesReady()){runBtn.disabled=true;resetResults();status.textContent='Please upload BOTH source and reference images before running LunaAlign.';return false;}
+ runBtn.disabled=true; resetResults(); status.textContent='Processing…';
+ const fd=new FormData(); fd.append('source',source.files[0],source.files[0].name); fd.append('target',target.files[0],target.files[0].name);
+ try{
+   const r=await fetch('/api/register',{method:'POST',body:fd});
+   const data=await r.json().catch(()=>({detail:'Invalid server response'}));
+   if(!r.ok) throw new Error(data.detail||'Processing failed');
+   resultStatus.textContent=data.status||'Processing complete'; resultStatus.className=(data.status==='SUCCESS'?'success':'failure'); metrics.textContent=JSON.stringify(data.metrics||data,null,2); results.classList.remove('hidden'); status.textContent=data.explanation||data.status||'Processing complete.';
+ }catch(err){resetResults();status.textContent='Processing error: '+err.message;}
+ finally{runBtn.disabled=!filesReady();}
+});
+})();
+</script>
+</body></html>
