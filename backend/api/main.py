@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 import csv, time
 import cv2, numpy as np
@@ -17,7 +18,32 @@ RESULTS = ROOT / "data" / "results"
 # Ensure runtime output directories exist before StaticFiles mounts them.
 RESULTS.mkdir(parents=True, exist_ok=True)
 app = FastAPI(title="LUNALIGN AI", version="0.1.0")
-app.add_middleware(CORSMiddleware, allow_origins=["http://127.0.0.1:8000", "http://localhost:8000", "null"], allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+        "http://localhost:5175",
+        "http://127.0.0.1:5175",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.mount("/results", StaticFiles(directory=RESULTS), name="results")
 RESULT_INDEX: dict[str, dict] = {}
 DB = ExperimentDB(ROOT / "data" / "lunalign.sqlite3")

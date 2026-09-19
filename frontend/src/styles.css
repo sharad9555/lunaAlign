@@ -1,1 +1,403 @@
-body{margin:0;background:#050b16;color:#d6e4f5;font:14px system-ui}main{max-width:1200px;margin:auto;padding:24px}section{display:flex;gap:8px;flex-wrap:wrap}input,select,button{padding:8px;background:#10233b;color:#fff;border:1px solid #365979;border-radius:5px}figure{display:inline-block;width:45%;vertical-align:top}img{max-width:100%;background:#000}
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  color: #dcecff;
+  background: #020812;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% 10%, #0b2740 0, transparent 30%),
+    radial-gradient(circle at 85% 20%, #071d35 0, transparent 28%),
+    linear-gradient(180deg, #020812 0%, #030b16 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: 100%;
+  min-height: 100vh;
+  padding: 18px;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar {
+  max-width: 1500px;
+  margin: 0 auto 14px;
+
+  min-height: 76px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 12px 18px;
+
+  border: 1px solid #173b5b;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      110deg,
+      rgba(7, 25, 45, 0.98),
+      rgba(4, 17, 31, 0.98)
+    );
+
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.brand-mark {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  color: #6bc7ff;
+  background:
+    radial-gradient(circle at 35% 30%, #536d85, #152c42 58%, #081522);
+
+  border: 1px solid #285777;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 0 25px rgba(41, 151, 219, 0.16);
+}
+
+.brand h1 {
+  margin: 0;
+
+  color: #e8f5ff;
+
+  font-size: 24px;
+  font-weight: 800;
+
+  letter-spacing: 2.5px;
+}
+
+.brand p {
+  margin: 3px 0 0;
+
+  color: #7896af;
+
+  font-size: 11px;
+  letter-spacing: 0.2px;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 13px;
+
+  border: 1px solid #185443;
+  border-radius: 20px;
+
+  color: #67e3b9;
+  background: rgba(5, 35, 29, 0.7);
+
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  display: inline-block;
+
+  border-radius: 50%;
+
+  background: #f0a93c;
+
+  box-shadow: 0 0 10px rgba(240, 169, 60, 0.7);
+}
+
+.status-dot.success {
+  background: #38e0a5;
+  box-shadow: 0 0 12px rgba(56, 224, 165, 0.8);
+}
+
+/* =========================
+   MAIN DASHBOARD
+========================= */
+
+.dashboard {
+  width: 100%;
+  max-width: 1500px;
+
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 14px;
+}
+
+.panel {
+  min-width: 0;
+
+  padding: 16px;
+
+  border: 1px solid #153958;
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(6, 20, 37, 0.98),
+      rgba(4, 16, 29, 0.98)
+    );
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.input-panel,
+.overview-panel {
+  min-height: 390px;
+}
+
+.results-panel,
+.coverage-panel {
+  grid-column: 1 / -1;
+}
+
+/* =========================
+   PANEL HEADINGS
+========================= */
+
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  margin-bottom: 16px;
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #4ba9dc;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.7px;
+}
+
+.panel-heading h2 {
+  margin: 0;
+
+  color: #dcecff;
+
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.step-number {
+  min-width: 34px;
+  height: 28px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid #214764;
+  border-radius: 6px;
+
+  color: #5f8ba9;
+  background: #071a2d;
+
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================
+   UPLOAD AREA
+========================= */
+
+.upload-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+}
+
+.image-drop {
+  min-height: 170px;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px 14px;
+
+  border: 1px dashed #2a5675;
+  border-radius: 9px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(8, 27, 46, 0.85),
+      rgba(5, 18, 31, 0.85)
+    );
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.image-drop:hover {
+  border-color: #3299d5;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(10, 37, 61, 0.9),
+      rgba(5, 21, 36, 0.9)
+    );
+
+  transform: translateY(-1px);
+}
+
+.image-drop input {
+  display: none;
+}
+
+.drop-icon {
+  width: 44px;
+  height: 44px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 10px;
+
+  border: 1px solid #26506e;
+  border-radius: 50%;
+
+  color: #54b8ed;
+  background: #0a2239;
+
+  font-size: 20px;
+}
+
+.drop-title {
+  color: #d5e8f8;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.drop-subtitle {
+  max-width: 90%;
+
+  margin-top: 5px;
+
+  overflow: hidden;
+
+  color: #7695ad;
+
+  font-size: 10px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drop-hint {
+  margin-top: 9px;
+
+  color: #4f718b;
+
+  font-size: 9px;
+
+  letter-spacing: 0.7px;
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.control-row {
+  display: flex;
+  align-items: flex-end;
+
+  gap: 12px;
+
+  margin-top: 13px;
+}
+
+.select-control {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 6px;
+}
+
+.select-control span {
+  color: #7591a8;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 0.8px;
+}
+
+.select-control select {
+  width: 100%;
+
+  padding: 10px 11px;
+
+  border: 1px solid #285270;
+  border-radius: 7px;
+
+  outline: none;
+
+  color: #dcecff;
+  background: #081;
+}
