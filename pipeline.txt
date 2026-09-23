@@ -1,0 +1,97 @@
+LUNALIGN AI – Image Registration Pipeline
+
+The LUNALIGN AI pipeline is designed to automatically align a source lunar image with a reference lunar image. The pipeline processes the input images, identifies reliable visual correspondences, estimates the geometric transformation, generates the registered image, and evaluates the quality of registration.
+
+1. Input Images
+
+The system takes two images as input:
+
+Source / Moving Image: The lunar image that needs to be aligned.
+Reference / Fixed Image: The target lunar image to which the source image is aligned.
+
+The images may contain variations in viewpoint, scale, illumination, and sensor characteristics.
+
+2. Preprocessing
+
+The input images are prepared for further processing. Depending on the selected configuration, preprocessing can include resizing, intensity normalization, noise reduction, and contrast enhancement.
+
+The purpose of preprocessing is to improve the visibility and consistency of useful image information.
+
+3. Feature / Representation Extraction
+
+The system extracts visually meaningful information from the lunar images, such as edges, gradients, keypoints, and distinctive terrain structures.
+
+These features provide the information required to establish correspondences between the source and reference images.
+
+4. Candidate Matching
+
+Potential correspondences between the two images are identified.
+
+The system compares extracted feature information and generates candidate matching pairs. These candidates represent possible locations in the source and reference images that correspond to the same lunar structure.
+
+5. Spatial Selection
+
+The candidate matches are filtered using spatial constraints.
+
+This step removes unsuitable or poorly distributed correspondences and retains a set of spatially meaningful candidates. This helps improve the reliability of subsequent geometric estimation.
+
+6. Geometric Verification
+
+The selected correspondences are checked for geometric consistency.
+
+The system identifies inliers, which are correspondences that agree with the estimated geometric relationship between the two images. Incorrect correspondences are treated as outliers and rejected.
+
+7. Homography Estimation
+
+A geometric transformation is estimated from the verified correspondences.
+
+For planar or approximately planar image regions, homography can be used to describe the transformation between the source and reference image coordinate systems.
+
+The estimated transformation is then used to map the source image into the reference image frame.
+
+8. Image Registration
+
+The source image is warped using the estimated transformation.
+
+The result is a registered image in which the source image is spatially aligned with the reference image.
+
+9. Quality Evaluation
+
+The registration result is evaluated using quantitative metrics such as:
+
+Candidate Matches
+Inliers
+Inlier Ratio
+RMSE
+Median Error
+P95 Error
+Spatial Coverage
+Processing Time
+
+These metrics provide quantitative information about the quality and reliability of the obtained registration.
+
+10. Output Visualization
+
+LUNALIGN generates multiple visual outputs to help analyze the registration result:
+
+Registered Image
+Alpha Overlay
+Checkerboard Comparison
+Difference Image
+Match Heatmap
+Crater/Landmark Visualization
+
+These visualizations allow the user to inspect how well the source and reference images have been aligned.
+
+11. Final Output
+
+The final system provides:
+
+Registered image
+Registration metrics
+Visual comparison results
+Correspondence information
+Diagnostic information
+Experiment/result information
+
+The results are presented through the LUNALIGN AI web dashboard, allowing users to inspect and evaluate the registration process interactivel
